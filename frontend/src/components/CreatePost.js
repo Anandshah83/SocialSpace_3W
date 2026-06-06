@@ -48,10 +48,16 @@ export default function CreatePost({ onPostCreated }) {
   };
 
   return (
-    <Card sx={{ mb: 2, borderRadius: 4, overflow: "hidden", boxShadow: "0 18px 40px rgba(15,23,42,0.08)" }}>
+    <Card sx={{ 
+      mb: 3, borderRadius: 6, overflow: "hidden", 
+      boxShadow: "0 20px 40px rgba(0,0,0,0.2)",
+      background: "rgba(255, 255, 255, 0.05)",
+      border: "1px solid rgba(255, 255, 255, 0.08)",
+      backdropFilter: "blur(10px)"
+    }}>
       <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
         <Box display="flex" gap={1.5} alignItems="flex-start">
-          <Avatar sx={{ bgcolor: avatarColor(user?.username), width: 42, height: 42, fontSize: 16, fontWeight: 700, flexShrink: 0 }}>
+          <Avatar sx={{ bgcolor: avatarColor(user?.username), width: 48, height: 48, fontSize: 18, fontWeight: 700, flexShrink: 0, boxShadow: "0 8px 16px rgba(0,0,0,0.1)" }}>
             {user?.username?.[0]?.toUpperCase()}
           </Avatar>
           <Box flex={1}>
@@ -60,11 +66,17 @@ export default function CreatePost({ onPostCreated }) {
               placeholder={`What's on your mind, ${user?.username}?`}
               value={text} onChange={(e) => setText(e.target.value)}
               inputProps={{ maxLength: 1000 }} variant="outlined" size="small"
-              sx={{ "& .MuiOutlinedInput-root": { borderRadius: 2, bgcolor: "rgba(0,0,0,0.02)" } }}
+              sx={{ 
+                "& .MuiOutlinedInput-root": { 
+                  borderRadius: 4, bgcolor: "rgba(255,255,255,0.03)", color: "#fff",
+                  "& fieldset": { borderColor: "rgba(255,255,255,0.1)" },
+                  "&:hover fieldset": { borderColor: "rgba(255,255,255,0.2)" }
+                } 
+              }}
             />
 
             {preview && (
-              <Box mt={1.5} position="relative" display="inline-block">
+              <Box mt={2} position="relative" display="inline-block">
                 <img src={preview} alt="preview" style={{ maxWidth: "100%", maxHeight: 250, borderRadius: 8, display: "block", objectFit: "cover" }} />
                 <IconButton size="small" onClick={removeImage}
                   sx={{ position: "absolute", top: 6, right: 6, bgcolor: "rgba(0,0,0,0.5)", color: "#fff", "&:hover": { bgcolor: "rgba(0,0,0,0.7)" } }}>
@@ -78,17 +90,24 @@ export default function CreatePost({ onPostCreated }) {
             <Box display="flex" justifyContent="space-between" alignItems="center" mt={1.5}>
               <Box>
                 <input type="file" accept="image/*" ref={fileRef} onChange={handleImage} style={{ display: "none" }} />
-                <Tooltip title="Add image">
+                <Tooltip title="Attach a photo">
                   <IconButton onClick={() => fileRef.current?.click()} color={image ? "primary" : "default"} size="small">
-                    <ImageIcon />
+                    <ImageIcon sx={{ color: image ? "#6366F1" : "rgba(255,255,255,0.5)" }} />
                   </IconButton>
                 </Tooltip>
-                <Typography variant="caption" color="text.secondary" ml={0.5}>{image ? "Image added ✓" : "Add photo"}</Typography>
+                <Typography variant="caption" sx={{ color: "rgba(255,255,255,0.5)" }} ml={0.5}>
+                  {image ? "Photo attached" : "Attach media"}
+                </Typography>
               </Box>
               <Button variant="contained" size="small"
                 endIcon={loading ? <CircularProgress size={14} color="inherit" /> : <SendIcon />}
                 onClick={handleSubmit} disabled={loading || (!text.trim() && !image)}
-                sx={{ borderRadius: 3, backgroundImage: "linear-gradient(135deg, #6C63FF, #FF6584)", boxShadow: "0 14px 28px rgba(108,99,255,0.22)" }}>
+                sx={{ 
+                  borderRadius: 4, px: 3, py: 0.8, fontWeight: 700,
+                  backgroundImage: "linear-gradient(135deg, #6366F1, #EC4899)", 
+                  boxShadow: "0 10px 20px rgba(99,102,241,0.3)",
+                  "&:hover": { boxShadow: "0 12px 24px rgba(99,102,241,0.4)", transform: "scale(1.02)" }
+                }}>
                 {loading ? "Posting…" : "Post"}
               </Button>
             </Box>

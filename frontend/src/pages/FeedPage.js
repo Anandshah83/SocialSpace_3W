@@ -30,26 +30,40 @@ export default function FeedPage() {
   useEffect(() => { fetchPosts(1, true); }, [fetchPosts]);
 
   return (
-    <Box sx={{ bgcolor: "background.default", minHeight: "calc(100vh - 64px)", py: { xs: 3, md: 5 } }}>
+    <Box sx={{ 
+      bgcolor: "#020617", 
+      minHeight: "calc(100vh - 64px)", 
+      py: { xs: 3, md: 5 },
+      background: "radial-gradient(circle at 50% -20%, #1e1b4b 0%, #020617 100%)"
+    }}>
       <Container maxWidth="md">
         <Box sx={{
           mb: 3,
           p: { xs: 3, sm: 4 },
-          borderRadius: 4,
-          background: "rgba(15,23,42,0.88)",
-          border: "1px solid rgba(99,102,241,0.18)",
-          boxShadow: "0 30px 80px rgba(15,23,42,0.32)",
-          backdropFilter: "blur(12px)"
+          borderRadius: 6,
+          background: "rgba(255, 255, 255, 0.03)",
+          backdropFilter: "blur(16px)",
+          border: "1px solid rgba(255, 255, 255, 0.1)",
+          boxShadow: "0 20px 50px rgba(0,0,0,0.3)"
         }}>
           <Box display="flex" flexDirection={{ xs: "column", md: "row" }} justifyContent="space-between" alignItems={{ xs: "flex-start", md: "center" }} gap={2}>
             <Box>
-              <Typography variant="h5" fontWeight={800} gutterBottom>🌐 SocialSpace</Typography>
+              <Typography variant="h4" fontWeight={900} sx={{ 
+                background: "linear-gradient(90deg, #6366F1 0%, #EC4899 100%)", 
+                WebkitBackgroundClip: "text", 
+                WebkitTextFillColor: "transparent"
+              }}>SocialSpace</Typography>
               <Typography variant="body2" color="text.secondary" sx={{ maxWidth: 520 }}>
-                Your feed is now styled like a modern 3D social surface, with brand-aligned content and a standout left-hand identity.
-                {total > 0 && ` ${total} post${total !== 1 ? "s" : ""} shared so far.`}
+                Explore a smooth, high-fidelity feed tailored for your digital expression.
+                {total > 0 && <Box component="span" fontWeight={700} sx={{ color: "#6366F1" }}> {total} posts shared so far.</Box>}
               </Typography>
             </Box>
-            <Button variant="contained" size="small" startIcon={<RefreshIcon />} onClick={() => fetchPosts(1, true)} disabled={loading} sx={{ borderRadius: 4, whiteSpace: "nowrap" }}>
+            <Button variant="contained" size="medium" startIcon={<RefreshIcon />} onClick={() => fetchPosts(1, true)} disabled={loading} 
+              sx={{ 
+                borderRadius: 4, px: 3, fontWeight: 700,
+                background: "rgba(99, 102, 241, 0.1)", border: "1px solid rgba(99, 102, 241, 0.4)",
+                "&:hover": { background: "rgba(99, 102, 241, 0.2)" }
+              }}>
               Refresh feed
             </Button>
           </Box>
